@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>user-details</title>
+  </head>
+  <link rel="stylesheet" href="../css/style-user.css" />
+  <body>
+    <h1>user-details</h1>
+    <main class="main"></main>
+    <section class="section"></section>
+
+    <script>
+      let url = new URL(location.href);
+      let user = JSON.parse(url.searchParams.get("id"));
+      let main = document.getElementsByClassName("main");
+      let arrlist = Object.entries(user);
+
+      createElement(user, main[0]);
+
+      let section = document.getElementsByClassName("section");
+      let button = document.createElement("button");
+      button.innerHTML = "post of current user";
+      button.classList.add("button");
+      section[0].append(button);
+
+      let userId = arrlist[0][1];
+      button.addEventListener("click", () => {
+        let url = new URL(`https://jsonplaceholder.typicode.com/users/${userId}/posts`);
+        console.log(url);
+
+        fetch(url)
+          .then((response) => response.json())
+          .then((posts_user) => {
+            console.log(posts_user);
+            let div = document.createElement("div");
+            section[0].append(div);
+            div.classList.add("box_post");
+
+            for (const post of posts_user) {
+              let div1 = document.createElement("div");
+              let p = document.createElement("p");
+              let a = document.createElement("a");
+
+              p.innerText = `${post.title}`;
+              a.innerText = "Повний текст";
+              a.classList.add("post__link");
+
+              div1.classList.add("post");
+              div.append(div1);
+              div1.append(p, a);
+
+              a.addEventListener("click", () => {
+                console.log(post.id);
+                document.location.href = "./post-details.html?postId=" + JSON.stringify(post.id);
+              });
+            }
+          });
+      });
+
+      function createElement(arr, mainbox) {
+        let ul = document.createElement("ul");
+        
+        for (const arrKey in arr) {
+          console.log('arrKey' + arrKey);
+          let li = document.createElement("li");
+          li.innerText = `${arrKey} - `;
+          console.log(li);
+          if (typeof arr[arrKey] === "object") {
+            li.classList.add("item-list");
+            createElement(arr[arrKey], li);
+          } else {
+            li.innerText = `${arrKey} - ${arr[arrKey]}`;
+          }
+          li.classList.add("item");
+          ul.appendChild(li);
+        }
+        mainbox.appendChild(ul);
+      }
+    </script>
+  </body>
+</html>

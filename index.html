@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>start</title>
+    <link rel="stylesheet" href="./css/style-start.css">
+</head>
+<body>
+    <h1>Start</h1>
+    <main class="main"></main>
+    
+    <script>
+        let url = new URL('https://jsonplaceholder.typicode.com/users');
+        fetch(url)
+        .then(response => response.json())
+        .then(users => {
+            for (const user of users) {
+                let main = document.getElementsByClassName("main");
+
+                let div = document.createElement('div');
+                let p = document.createElement('p');
+                let a = document.createElement('a');
+
+                p.innerText = `id: ${user.id} - name : ${user.name}`;
+                a.innerText = `Натисне мене User ${user.id}`;
+
+                div.classList.add("user");
+                a.classList.add("user__link");
+
+                main[0].append(div);
+                div.append(p,a);
+
+                a.addEventListener('click', ()=>{
+                document.location.href = "./page/user-details.html?id=" + JSON.stringify(user);
+                })
+            }
+        });
+    </script>
+
+</body>
+</html>

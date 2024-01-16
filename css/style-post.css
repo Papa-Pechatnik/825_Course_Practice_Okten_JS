@@ -1,0 +1,67 @@
+h1 {
+    font-size: 26px;
+    color: green;
+    text-align: center;
+  }
+
+  h2 {
+    font-size: 56px;
+    color: green;
+    text-align: center;
+  }
+
+  ul {
+    box-sizing: border-box;
+    list-style-type: none;
+    padding: 20px;
+    border-radius: 10px;
+    background: lightblue;
+  }
+
+  ul .item:nth-of-type(odd) {
+    background: rgb(210, 147, 229);
+  }
+  ul .item:nth-of-type(even) {
+    background: rgb(75, 146, 181);
+  }
+
+  .main {
+    margin-inline: auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
+
+  .item {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 10px;
+  }
+
+  .item-titel {
+    font-weight: 900;
+    font-size: 24px;
+  }
+
+  .item-subtitel {
+    font-weight: 500;
+    font-size: 18px;
+  }
+
+  .home {
+    display: block;
+    text-decoration: none;
+    text-align: center;
+    background-color: antiquewhite;
+    padding: 20px 0 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 900;
+    font-size: 24px;
+    text-wrap: nowrap;
+  }
+
+  .mome:hover {
+    background-color: rgb(255, 217, 168);
+    outline: 2px solid red;
+  }

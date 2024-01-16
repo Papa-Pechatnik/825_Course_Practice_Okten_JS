@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>post-details</title>
+  </head>
+<link rel="stylesheet" href="../css/style-post.css">
+  <body>
+    <h1>post-details</h1>
+    <h2></h2>
+    <main class="main"></main>
+    <a class="home" href="../index.html"> На головну сторінку</a>
+  </body>
+
+  <script>
+    let url = new URL(location.href);
+    let postId = JSON.parse(url.searchParams.get("postId"));
+    let href = new URL(`https://jsonplaceholder.typicode.com/posts/${postId}/comments`);
+
+    let h2 = document.getElementsByTagName("h2");
+    h2[0].innerText = "postId : " + postId;
+
+    fetch(href)
+      .then((response) => response.json())
+      .then((posts) => {
+        for (const post of posts) {
+          let main = document.getElementsByClassName("main");
+          let arrlist = Object.entries(post);
+
+          let ul = document.createElement("ul");
+          main[0].append(ul);
+
+          for (let i = 1; i < arrlist.length; i++) {
+            let li = document.createElement("li");
+            let span1 = document.createElement("span");
+            let span2 = document.createElement("span");
+            span1.innerText = `${arrlist[i][0]} - `;
+            span2.innerText = `${arrlist[i][1]}`;
+            span1.classList.add("item-titel");
+            span2.classList.add("item-subtitel");
+            li.classList.add("item");
+            li.append(span1, span2);
+            ul.append(li);
+          }
+        }
+      });
+  </script>
+</html>
